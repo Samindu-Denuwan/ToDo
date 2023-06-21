@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo/common/utils/constants.dart';
+import 'package:todo/features/auth/pages/login_page.dart';
 import 'package:todo/generated/assets.dart';
 import '../../../common/widgets/widgets.dart';
 
@@ -25,10 +26,10 @@ class PageTwo extends StatelessWidget {
           const HeightSpacer(height: 50),
           CustomOutlineBtn(
             onTap: (){
-              // Navigator.pushReplacement(context, MaterialPageRoute(
-              //     builder: (context) => LoginPage(),));
+              Navigator.pushReplacement(context, MaterialPageRoute(
+                  builder: (context) => const LoginPage(),));
             },
-              height: AppConst.kHeight*0.07,
+              radius: 30,
               width: AppConst.kWidth*0.9,
               borderColor: AppConst.kLight,
               txtColor: AppConst.kLight,
