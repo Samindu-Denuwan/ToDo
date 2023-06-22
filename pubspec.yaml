@@ -42,6 +42,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   lottie: ^2.4.0
   country_picker: ^2.0.20
+  pinput: ^2.2.31
 
 dev_dependencies:
   flutter_test:

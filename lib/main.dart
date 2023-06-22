@@ -1,10 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:todo/common/utils/constants.dart';
 import 'package:todo/features/onBoarding/pages/onBoarding_page.dart';
 import 'package:todo/features/todo/pages/home_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // transparent status bar
+      systemNavigationBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarDividerColor: AppConst.kbkDark,));
   runApp(const ProviderScope(child:  MyApp()));
 }
 
@@ -28,7 +37,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: AppConst.kbkDark,
             useMaterial3: true,
           ),
-          home:OnBoardingPage()
+          home:const HomePage()
         );
       }
     );

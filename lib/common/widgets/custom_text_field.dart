@@ -9,15 +9,22 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final TextStyle? hintStyle;
   final TextStyle style;
+  final double height;
   final void Function(String)? onChanged;
   final TextEditingController controller;
-  const CustomTextField({Key? key, required this.keyboard, required this.hint, this.suffixIcon, this.prefixIcon, this.hintStyle, required this.controller, required this.style, this.onChanged}) : super(key: key);
+  const CustomTextField({Key? key,
+    required this.keyboard,
+    required this.hint,
+    this.suffixIcon,
+    this.prefixIcon, this.hintStyle, required this.controller,
+    required this.style, this.onChanged,
+    this.height = 70}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return Container(
-      height: 70.h,
+      height: height.h,
       width: AppConst.kWidth*0.9,
       decoration: BoxDecoration(
         color:Colors.white,
