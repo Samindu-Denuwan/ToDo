@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/reusable_text.dart';
 import 'package:todo/common/widgets/widgets.dart';
+import 'package:todo/features/todo/controllers/xpansion_provider.dart';
 import 'package:todo/features/todo/widgets/tile_todo.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -144,6 +145,8 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                                     start: "03:00",
                                     end: "05:00",
                                     switcher: Switch(
+                                        activeTrackColor: Colors.orange,
+                                        inactiveTrackColor: Colors.grey,
                                         value: true,
                                         onChanged: (value){}),
 
@@ -159,7 +162,10 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                                   TodoTile(
                                     start: "03:00",
                                     end: "05:00",
-                                    switcher: Icon(Icons.check_circle, color: Colors.green,),
+                                    switcher: Padding(
+                                      padding:  EdgeInsets.only(right:12.w ),
+                                      child: const Icon(Icons.check_circle, color: Colors.green,),
+                                    ),
 
                                   ),
                                 ],
@@ -170,17 +176,55 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                     )
                   ),
                   const HeightSpacer(height: 20),
-                  const CustomExpansionTile(
+                  CustomExpansionTile(
+                    onExpansionChanged: (bool expanded){
+                      ref.read(xpansionStateProvider.notifier).setStart(!expanded);
+                    },
+                      trailing: Padding(
+                            padding:  EdgeInsets.only(right:12.w ),
+                            child: ref.watch(xpansionStateProvider)
+                                ?const Icon(AntDesign.circledown, color: Colors.white,)
+                                :const Icon(AntDesign.closecircle, color: Colors.orange,),
+                          ),
                       text: "Tomorrow's Task",
                       text2: "Tomorrow's tasks are shown here",
-                      children: []
+                      children: [
+                        TodoTile(
+                          start: "03:00",
+                          end: "05:00",
+                          switcher: Padding(
+                            padding:  EdgeInsets.only(right:8.w ),
+                            child: const Icon(Icons.check_circle, color: Colors.green,),
+                          ),
+
+                        ),
+                      ]
                   ),
 
                   const HeightSpacer(height: 20),
                    CustomExpansionTile(
                       text: DateTime.now().add( const Duration(days: 2)).toString().substring(5,10),
                       text2: "Day after tomorrow's tasks",
-                      children: []
+                       onExpansionChanged: (bool expanded){
+                         ref.read(xpansionState0Provider.notifier).setStart(!expanded);
+                       },
+                       trailing: Padding(
+                         padding:  EdgeInsets.only(right:12.w ),
+                         child: ref.watch(xpansionState0Provider)
+                             ?const Icon(AntDesign.circledown, color: Colors.white,)
+                             :const Icon(AntDesign.closecircle, color: Colors.orange,),
+                       ),
+                      children: [
+                        TodoTile(
+                          start: "03:00",
+                          end: "05:00",
+                          switcher: Padding(
+                            padding:  EdgeInsets.only(right:8.w),
+                            child: const Icon(Icons.check_circle, color: Colors.green,),
+                          ),
+
+                        ),
+                      ]
                   ),
 
 
