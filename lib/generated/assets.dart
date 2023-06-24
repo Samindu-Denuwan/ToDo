@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String animationsCalendar = 'assets/animations/calendar.json';
   static const String animationsLogin = 'assets/animations/login.json';
   static const String animationsOnBoard = 'assets/animations/onBoard.json';
   static const String fontPoppinsBold = 'assets/font/Poppins-Bold.ttf';

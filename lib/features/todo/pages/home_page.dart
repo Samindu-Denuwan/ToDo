@@ -6,7 +6,9 @@ import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/reusable_text.dart';
 import 'package:todo/common/widgets/widgets.dart';
 import 'package:todo/features/todo/controllers/xpansion_provider.dart';
+import 'package:todo/features/todo/pages/add.dart';
 import 'package:todo/features/todo/widgets/tile_todo.dart';
+import 'package:todo/features/todo/widgets/tile_widget.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMixin{
   final TextEditingController searchController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descController = TextEditingController();
   late final TabController tabController = TabController(
       length: 2, vsync: this);
 
@@ -41,7 +45,10 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                     InkWell(
                       borderRadius: BorderRadius.circular(30.sp),
                       splashColor: AppConst.kGreyLight,
-                      onTap: (){},
+                      onTap: (){
+                        ShowModelSheet(context);
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => const AddTask(),));
+                      },
                         child: Icon(Icons.add_circle_rounded, color: Colors.white, size: 30.sp,))
                   ],
                 ),
@@ -51,6 +58,7 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                   keyboard: TextInputType.text,
                   hint: "Search",
                   height: 60,
+                  hintStyle: appStyle(17, Colors.grey.shade500, FontWeight.w400),
                   controller: searchController,
                   style: appStyle(18, Colors.black87, FontWeight.w400),
                 prefixIcon: Container(
@@ -145,9 +153,11 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                                     start: "03:00",
                                     end: "05:00",
                                     switcher: Switch(
+                                      activeColor: Colors.white,
                                         activeTrackColor: Colors.orange,
                                         inactiveTrackColor: Colors.grey,
                                         value: true,
+
                                         onChanged: (value){}),
 
                                   ),
@@ -237,6 +247,121 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
           ),
       ),
     );
+  }
+
+  void ShowModelSheet(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context, builder: (_) {
+
+      return Container(
+        padding: EdgeInsets.only(bottom: 40.h),
+height: AppConst.kHeight*0.75,
+        width: AppConst.kWidth,
+        decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.only(
+              topLeft:
+              Radius.circular(30.w),
+              topRight:
+              Radius.circular(30.w),
+            ),
+            color: AppConst.kLight),
+        child: Column(
+          children: [
+            Padding(
+              padding:  EdgeInsets.symmetric(vertical: 10.h),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius:
+                    BorderRadius
+                        .circular(10
+                        .w),
+                    color: Colors.grey.shade400),
+                width: 70.w,
+                height: 8.h,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                child: ListView(
+                  children: [
+                    Center(
+                      child: ReusableText(text: "New Task",
+                          style: appStyle(18, AppConst.kbkDark, FontWeight.w500)),
+                    ),
+                    const HeightSpacer(height: 20),
+                    CustomTextField(
+                      boxShadow: true,
+                        height: 65,
+                        keyboard: TextInputType.text,
+                        hint:"Add Title", controller: titleController,
+                        hintStyle: appStyle(16, Colors.grey.shade500, FontWeight.w400),
+                        style: appStyle(18, AppConst.kGreyLight, FontWeight.w600)),
+
+                    const HeightSpacer(height: 20),
+                    CustomTextField(
+                        boxShadow: true,
+                        height: 150,
+                        maxLine: 6,
+                        keyboard: TextInputType.text,
+                        hint:"Add Description", controller: descController,
+                        hintStyle: appStyle(14, Colors.grey.shade500, FontWeight.w400),
+                        style: appStyle(16, AppConst.kGreyLight, FontWeight.w500)),
+                    const HeightSpacer(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TileWidget(
+                          width: 100.w,
+                            icon: FontAwesome.calendar,
+                            text: "Date"),
+                        const Column(
+                          children: [
+                            TileWidget(
+                                width: 150,
+                                icon: FontAwesome.clock_o,
+                                text: "Start Time"),
+                            HeightSpacer(height: 20),
+                            TileWidget(
+                                width: 150,
+                                icon: FontAwesome.clock_o,
+                                text: "End Time"),
+                          ],
+                        )
+                      ],
+                    ),
+                    const HeightSpacer(height: 20),
+
+                  ],
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CustomOutlineBtn(
+                    onTap: (){},
+                    margin: 0,
+                    borderColor: Colors.orange,
+                    backColor: Colors.orange,
+                    txtColor: Colors.white,
+                    text: "Set Date"),
+                CustomOutlineBtn(
+                    onTap: (){},
+                    margin: 0,
+                    borderColor: Colors.orange,
+                    backColor: Colors.orange,
+                    txtColor: Colors.white,
+                    text: "Set Date"),
+              ],
+            ),
+          ],
+        ),
+      );
+    },);
   }
 }
 

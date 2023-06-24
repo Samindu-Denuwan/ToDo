@@ -43,7 +43,7 @@ class CustomOutlineBtn extends StatelessWidget {
             )),
         child: Center(
           child: ReusableText(
-              text: text, style: appStyle(20.sp, txtColor, FontWeight.w600)),
+              text: text, style: appStyle(20.sp, txtColor, FontWeight.w500)),
         ),
       ),
     );

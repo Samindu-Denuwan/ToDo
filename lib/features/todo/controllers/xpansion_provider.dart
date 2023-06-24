@@ -5,7 +5,7 @@ part 'xpansion_provider.g.dart';
 class XpansionState extends _$XpansionState{
   @override
   bool build(){
-    return false;
+    return true;
   }
   void setStart(bool newState) {
     state = newState;
@@ -17,7 +17,7 @@ class XpansionState extends _$XpansionState{
 class XpansionState0 extends _$XpansionState0{
   @override
   bool build(){
-    return false;
+    return true;
   }
   void setStart(bool newState) {
     state = newState;
