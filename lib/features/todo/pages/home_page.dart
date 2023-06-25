@@ -5,8 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/reusable_text.dart';
 import 'package:todo/common/widgets/widgets.dart';
+import 'package:todo/features/todo/controllers/dates/dates_provider.dart';
 import 'package:todo/features/todo/controllers/xpansion_provider.dart';
 import 'package:todo/features/todo/pages/add.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
+as picker;
+
 import 'package:todo/features/todo/widgets/tile_todo.dart';
 import 'package:todo/features/todo/widgets/tile_widget.dart';
 
@@ -19,15 +23,12 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMixin{
   final TextEditingController searchController = TextEditingController();
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descController = TextEditingController();
   late final TabController tabController = TabController(
       length: 2, vsync: this);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
@@ -46,8 +47,8 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                       borderRadius: BorderRadius.circular(30.sp),
                       splashColor: AppConst.kGreyLight,
                       onTap: (){
-                        ShowModelSheet(context);
-                        //Navigator.push(context, MaterialPageRoute(builder: (context) => const AddTask(),));
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AddTask(),));
                       },
                         child: Icon(Icons.add_circle_rounded, color: Colors.white, size: 30.sp,))
                   ],
@@ -246,123 +247,141 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
             ),
           ),
       ),
+
     );
+
   }
 
-  void ShowModelSheet(BuildContext context) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: context, builder: (_) {
 
-      return Container(
-        padding: EdgeInsets.only(bottom: 40.h),
-height: AppConst.kHeight*0.75,
-        width: AppConst.kWidth,
-        decoration: BoxDecoration(
-            borderRadius:
-            BorderRadius.only(
-              topLeft:
-              Radius.circular(30.w),
-              topRight:
-              Radius.circular(30.w),
-            ),
-            color: AppConst.kLight),
-        child: Column(
-          children: [
-            Padding(
-              padding:  EdgeInsets.symmetric(vertical: 10.h),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius:
-                    BorderRadius
-                        .circular(10
-                        .w),
-                    color: Colors.grey.shade400),
-                width: 70.w,
-                height: 8.h,
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 20.w),
-                child: ListView(
-                  children: [
-                    Center(
-                      child: ReusableText(text: "New Task",
-                          style: appStyle(18, AppConst.kbkDark, FontWeight.w500)),
-                    ),
-                    const HeightSpacer(height: 20),
-                    CustomTextField(
-                      boxShadow: true,
-                        height: 65,
-                        keyboard: TextInputType.text,
-                        hint:"Add Title", controller: titleController,
-                        hintStyle: appStyle(16, Colors.grey.shade500, FontWeight.w400),
-                        style: appStyle(18, AppConst.kGreyLight, FontWeight.w600)),
 
-                    const HeightSpacer(height: 20),
-                    CustomTextField(
-                        boxShadow: true,
-                        height: 150,
-                        maxLine: 6,
-                        keyboard: TextInputType.text,
-                        hint:"Add Description", controller: descController,
-                        hintStyle: appStyle(14, Colors.grey.shade500, FontWeight.w400),
-                        style: appStyle(16, AppConst.kGreyLight, FontWeight.w500)),
-                    const HeightSpacer(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TileWidget(
-                          width: 100.w,
-                            icon: FontAwesome.calendar,
-                            text: "Date"),
-                        const Column(
-                          children: [
-                            TileWidget(
-                                width: 150,
-                                icon: FontAwesome.clock_o,
-                                text: "Start Time"),
-                            HeightSpacer(height: 20),
-                            TileWidget(
-                                width: 150,
-                                icon: FontAwesome.clock_o,
-                                text: "End Time"),
-                          ],
-                        )
-                      ],
-                    ),
-                    const HeightSpacer(height: 20),
 
-                  ],
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomOutlineBtn(
-                    onTap: (){},
-                    margin: 0,
-                    borderColor: Colors.orange,
-                    backColor: Colors.orange,
-                    txtColor: Colors.white,
-                    text: "Set Date"),
-                CustomOutlineBtn(
-                    onTap: (){},
-                    margin: 0,
-                    borderColor: Colors.orange,
-                    backColor: Colors.orange,
-                    txtColor: Colors.white,
-                    text: "Set Date"),
-              ],
-            ),
-          ],
-        ),
-      );
-    },);
-  }
 }
+
+// showModalBottomSheet(
+// isScrollControlled: true,
+// backgroundColor: Colors.transparent,
+// context: context, builder: (context) {
+// return GestureDetector(
+// onTap: ()=>FocusScope.of(context).unfocus(),
+// child: Container(
+// padding: EdgeInsets.only(bottom: 40.h),
+// height: AppConst.kHeight*0.8,
+// width: AppConst.kWidth,
+// decoration: BoxDecoration(
+// borderRadius:
+// BorderRadius.only(
+// topLeft:
+// Radius.circular(30.w),
+// topRight:
+// Radius.circular(30.w),
+// ),
+// color: AppConst.kLight),
+// child: Column(
+// children: [
+// Padding(
+// padding:  EdgeInsets.symmetric(vertical: 10.h),
+// child: Container(
+// decoration: BoxDecoration(
+// borderRadius:
+// BorderRadius
+//     .circular(10
+//     .w),
+// color: Colors.grey.shade400),
+// width: 70.w,
+// height: 8.h,
+// ),
+// ),
+// Expanded(
+// child: Padding(
+// padding:  EdgeInsets.symmetric(horizontal: 20.w),
+// child: ListView(
+// children: [
+// Center(
+// child: ReusableText(text: "New Task",
+// style: appStyle(18, AppConst.kbkDark, FontWeight.w500)),
+// ),
+// const HeightSpacer(height: 10),
+// ReusableText(text: "Title",
+// style: appStyle(16, AppConst.kGreyLight, FontWeight.w500)),
+// const HeightSpacer(height: 10),
+// CustomTextField(
+// boxShadow: true,
+// height: 65,
+// keyboard: TextInputType.text,
+// hint:"Add Title", controller: titleController,
+// hintStyle: appStyle(16, Colors.grey.shade500, FontWeight.w400),
+// style: appStyle(18, AppConst.kGreyLight, FontWeight.w600)),
+//
+// const HeightSpacer(height: 20),
+// ReusableText(text: "Description",
+// style: appStyle(16, AppConst.kGreyLight, FontWeight.w500)),
+// const HeightSpacer(height: 10),
+// CustomTextField(
+// boxShadow: true,
+// height: 150,
+// maxLine: 6,
+// keyboard: TextInputType.text,
+// hint:"Add Description", controller: descController,
+// hintStyle: appStyle(14, Colors.grey.shade500, FontWeight.w400),
+// style: appStyle(16, AppConst.kGreyLight, FontWeight.w500)),
+// const HeightSpacer(height: 30),
+// GestureDetector(
+// onTap:(){
+// picker.DatePicker.showDatePicker(context,
+// showTitleActions: true,
+// minTime: DateTime(2023, 6, 25),
+// maxTime: DateTime(2024, 6, 7),
+// theme: const picker.DatePickerTheme(
+// doneStyle:
+// TextStyle(color: Colors.orange, fontSize: 16)),
+// onConfirm: (date) {
+// ref.read(dateStateProvider.notifier).setDate(date.toString());
+// }, currentTime: DateTime.now(), locale: picker.LocaleType.en);
+// },
+// child: TileWidget(
+// width: AppConst.kWidth,
+// icon: FontAwesome.calendar,
+// text: "Set Date"),
+// ),
+// const HeightSpacer(height: 20),
+// Row(
+// mainAxisAlignment: MainAxisAlignment.spaceBetween,
+// children: [
+// GestureDetector(
+// onTap:(){},
+// child: const TileWidget(
+// width: 150,
+// icon: FontAwesome.clock_o,
+// text: "Start Time"),
+// ),
+// const HeightSpacer(height: 20),
+// GestureDetector(
+// onTap:(){},
+// child: const TileWidget(
+// width: 150,
+// icon: FontAwesome.clock_o,
+// text: "End Time"),
+// ),
+// ],
+// ),
+//
+// ],
+// ),
+// ),
+// ),
+// CustomOutlineBtn(
+// onTap: (){},
+// margin: 20,
+// width: AppConst.kWidth,
+// borderColor: Colors.orange,
+// backColor: Colors.orange,
+// txtColor: Colors.white,
+// text: "Add New Task"),
+//
+// ],
+// ),
+// ),
+// );
+// },);
 
 
