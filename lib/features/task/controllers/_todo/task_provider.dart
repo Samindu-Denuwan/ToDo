@@ -12,6 +12,7 @@ class TodoState extends _$TodoState{
   List<Task> build(){
     return [];
   }
+
   void refresh()async {
     final data = await DBHelper.getItems();
 
@@ -21,7 +22,6 @@ class TodoState extends _$TodoState{
   void addItem(Task task)async{
     await DBHelper.createItem(task);
     refresh();
-
   }
 
   void updateItem(int id, String title, String description,
@@ -94,7 +94,5 @@ class TodoState extends _$TodoState{
     }
     return isCompleted;
   }
-
-
 
 }

@@ -17,6 +17,7 @@ import 'package:todo/features/task/widgets/tile_todo.dart';
 import 'package:todo/features/task/widgets/today_task.dart';
 import 'package:todo/features/task/widgets/tomorrow_task.dart';
 import 'package:todo/generated/assets.dart';
+import 'package:badges/badges.dart' as badges;
 
 
 
@@ -35,6 +36,7 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     ref.watch(todoStateProvider.notifier).refresh();
+
     return Scaffold(
       backgroundColor: AppConst.kGreyBk,
       appBar: AppBar(
@@ -124,9 +126,20 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                           Tab(
                             child: SizedBox(
                               width: AppConst.kWidth*0.5,
-                              child: const Center(
-                                child: Text(
-                                    "Pending"
+                              child:  Center(
+                                child: Row(
+                                  children: [
+                                    const Text(
+                                        "Pending"
+                                    ),
+                                    WidthSpacer(width: 10.w),
+                                    //  badges.Badge(
+                                    //   badgeContent: Text(pendingCount),
+                                    //   badgeStyle: badges.BadgeStyle(
+                                    //     badgeColor: Colors.green
+                                    //   ),
+                                    // )
+                                  ],
                                 ),
                               ),
                             ),

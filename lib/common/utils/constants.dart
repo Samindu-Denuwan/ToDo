@@ -36,3 +36,7 @@ List<dynamic> colors = [
   Colors.cyanAccent,
 
 ];
+
+String title = '';
+String desc = '';
+String pendingCount = '';

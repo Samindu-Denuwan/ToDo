@@ -3,7 +3,10 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo/common/models/task_model.dart';
+import 'package:todo/common/utils/constants.dart';
 import 'package:todo/features/task/controllers/_todo/task_provider.dart';
+import 'package:todo/features/task/controllers/pending/count_provider.dart';
+import 'package:todo/features/task/pages/update_task.dart';
 import 'package:todo/features/task/widgets/tile_todo.dart';
 import 'package:todo/generated/assets.dart';
 
@@ -20,7 +23,6 @@ class TodayTask extends ConsumerWidget {
         .where((element) =>
     element.isCompleted == 0 &&
         element.date!.contains(today) ).toList();
-
     return todayList.isNotEmpty? ListView.builder(
       itemCount: todayList.length,
       itemBuilder: (context, index) {
@@ -33,6 +35,9 @@ class TodayTask extends ConsumerWidget {
           },
           editWidget: GestureDetector(
             onTap: (){
+              title = data.title.toString();
+              desc = data.description.toString();
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  UpdateTask(id: data.id??0),));
             },
             child: const Icon(MaterialCommunityIcons.circle_edit_outline, color: Colors.white,),
           ),

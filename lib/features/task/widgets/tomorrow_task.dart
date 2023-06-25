@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/widgets.dart';
 import 'package:todo/features/task/controllers/_todo/task_provider.dart';
 import 'package:todo/features/task/controllers/xpansion_provider.dart';
+import 'package:todo/features/task/pages/update_task.dart';
 import 'package:todo/features/task/widgets/tile_todo.dart';
 
 class TomorrowTask extends ConsumerWidget {
@@ -43,6 +45,9 @@ class TomorrowTask extends ConsumerWidget {
             },
             editWidget: GestureDetector(
               onTap: (){
+                title = todo.title.toString();
+                desc = todo.description.toString();
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  UpdateTask(id: todo.id??0),));
               },
               child: const Icon(MaterialCommunityIcons.circle_edit_outline, color: Colors.white,),
             ),

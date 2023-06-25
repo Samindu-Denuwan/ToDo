@@ -96,7 +96,7 @@ class DBHelper {
     final db = await DBHelper.db();
 
     try{
-      db.delete("todos", where: 'id ?', whereArgs: [id]);
+      db.delete("todos", where: 'id = ?', whereArgs: [id]);
     }catch(e){
       debugPrint("Unable to Delete: $e");
 
