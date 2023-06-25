@@ -25,6 +25,18 @@ class XpansionState0 extends _$XpansionState0{
 
 }
 
+@riverpod
+class XpansionState1 extends _$XpansionState1{
+  @override
+  bool build(){
+    return true;
+  }
+  void setStart(bool newState) {
+    state = newState;
+  }
+
+}
+
 
 
 

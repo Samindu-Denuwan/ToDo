@@ -20,3 +20,19 @@ class AppConst{
 
 
 }
+
+List<dynamic> colors = [
+
+  Colors.amber,
+  Colors.green,
+  Colors.blue,
+  Colors.purple,
+  Colors.red,
+  Colors.yellow,
+  Colors.indigoAccent,
+  Colors.teal,
+  Colors.pinkAccent,
+  Colors.purpleAccent,
+  Colors.cyanAccent,
+
+];

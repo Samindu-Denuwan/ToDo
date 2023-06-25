@@ -41,7 +41,7 @@ class _AddTaskState extends ConsumerState<AddTask> {
           elevation: 0,
           foregroundColor: Colors.white,
           systemOverlayStyle: const SystemUiOverlayStyle(
-            systemNavigationBarColor: AppConst.kbkDark,
+            systemNavigationBarColor: AppConst.kGreyBk,
               systemNavigationBarIconBrightness: Brightness.light
           ),
 

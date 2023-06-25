@@ -81,7 +81,7 @@ class DBHelper {
       'description': description,
       'isCompleted': isCompleted,
       'date': date,
-      'statTime': startTime,
+      'startTime': startTime,
       'endTime':endTime
 
     };

@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
   static final defaultDarkColorScheme = ColorScheme.fromSwatch(
       brightness: Brightness.dark,
       primarySwatch:Colors.orange );
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/widgets.dart';
+import 'package:todo/features/task/controllers/_todo/task_provider.dart';
 
 class BottomTitles extends StatelessWidget {
   final String text;
@@ -23,13 +24,13 @@ class BottomTitles extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Consumer(builder: (context, ref, child) {
+            var color = ref.read(todoStateProvider.notifier).getRandomColor();
             return Container(
               height: 80.h,
               width: 5.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.w),
-                //TODO: dynamic colors
-                color: Colors.green,
+                color: color,
               ),
 
             );
