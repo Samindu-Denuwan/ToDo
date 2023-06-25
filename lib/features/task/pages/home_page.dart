@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todo/common/models/task_model.dart';
 import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/reusable_text.dart';
 import 'package:todo/common/widgets/widgets.dart';
-import 'package:todo/features/todo/controllers/dates/dates_provider.dart';
-import 'package:todo/features/todo/controllers/xpansion_provider.dart';
-import 'package:todo/features/todo/pages/add.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
-as picker;
+import 'package:todo/features/task/controllers/_todo/task_provider.dart';
+import 'package:todo/features/task/controllers/xpansion_provider.dart';
+import 'package:todo/features/task/pages/add.dart';
+import 'package:todo/features/task/widgets/tile_todo.dart';
 
-import 'package:todo/features/todo/widgets/tile_todo.dart';
-import 'package:todo/features/todo/widgets/tile_widget.dart';
+
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,7 +28,9 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(todoStateProvider.notifier).refresh();
     return Scaffold(
+      backgroundColor: AppConst.kGreyBk,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
@@ -47,7 +49,6 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                       borderRadius: BorderRadius.circular(30.sp),
                       splashColor: AppConst.kGreyLight,
                       onTap: (){
-
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const AddTask(),));
                       },
                         child: Icon(Icons.add_circle_rounded, color: Colors.white, size: 30.sp,))
@@ -78,6 +79,10 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
             ],
 
           ),),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          systemNavigationBarColor: AppConst.kbkDark,
+          systemNavigationBarIconBrightness: Brightness.light
+        ),
       ),
       body: SafeArea(
           child: GestureDetector(
@@ -96,7 +101,6 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                   ),
                   HeightSpacer(height: 20.h),
                   Container(
-
                     child: TabBar(
                         controller: tabController,
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -148,22 +152,7 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                             Container(
                               color: Colors.white.withOpacity(0.3),
                               height: AppConst.kHeight*0.3,
-                              child: ListView(
-                                children: [
-                                  TodoTile(
-                                    start: "03:00",
-                                    end: "05:00",
-                                    switcher: Switch(
-                                      activeColor: Colors.white,
-                                        activeTrackColor: Colors.orange,
-                                        inactiveTrackColor: Colors.grey,
-                                        value: true,
-
-                                        onChanged: (value){}),
-
-                                  ),
-                                ],
-                              ),
+                              child: TodayTask(),
                             ),
                             Container(
                               color: Colors.white.withOpacity(0.3),
@@ -238,9 +227,6 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                       ]
                   ),
 
-
-
-
                 ],
               ),
 
@@ -252,9 +238,41 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
 
   }
 
+}
 
+class TodayTask extends ConsumerWidget {
+  const TodayTask({
+    super.key,
+  });
 
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+   List<Task> listData =  ref.watch(todoStateProvider);
+   String today = ref.read(todoStateProvider.notifier).getToday();
+   var todayList = listData
+        .where((element) =>
+    element.isCompleted == 0 &&
+        element.date!.contains(today) ).toList();
+   return ListView.builder(
+      itemCount: todayList.length,
+        itemBuilder: (context, index) {
+        final data = todayList[index];
+          return TodoTile(
+            title: data.title,
+            description: data.description,
+            start: data.startTime,
+            end: data.endTime,
+            color: AppConst.kYellow,
+            switcher: Switch(
+                activeColor: Colors.white,
+                activeTrackColor: Colors.orange,
+                inactiveTrackColor: Colors.grey,
+                value: true,
+                onChanged: (value){}),
 
+          );
+        },);
+  }
 }
 
 // showModalBottomSheet(

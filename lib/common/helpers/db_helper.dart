@@ -7,7 +7,7 @@ class DBHelper {
     await database.execute(
       "CREATE TABLE todos("
       'id INTEGER PRIMARY KEY AUTOINCREMENT,'
-      'title STRING, desc TEXT, date STRING, '
+      'title STRING, description TEXT, date STRING, '
       'startTime STRING, endTime STRING,'
       'remind INTEGER,  repeat STRING, '
       'isCompleted INTEGER'
@@ -23,7 +23,7 @@ class DBHelper {
   }
 
   static Future<sql.Database> db()async{
-    return sql.openDatabase("todo", version: 1,
+    return sql.openDatabase("tDo", version: 1,
     onCreate: (sql.Database database, int version)async{
       await createTables(database);
     });
@@ -69,7 +69,7 @@ class DBHelper {
   }
 
   static Future<int> updateItem(
-      int id, String title, String desc,
+      int id, String title, String description,
       int isCompleted,
       String date,
       String startTime,
@@ -78,7 +78,7 @@ class DBHelper {
 
     final data = {
       'title' : title,
-      'desc': desc,
+      'description': description,
       'isCompleted': isCompleted,
       'date': date,
       'statTime': startTime,

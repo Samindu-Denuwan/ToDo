@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todo/common/helpers/db_helper.dart';
 import 'package:todo/common/models/task_model.dart';
-part 'todo_provider.g.dart';
+part 'task_provider.g.dart';
 
 @riverpod
 class TodoState extends _$TodoState{
@@ -10,9 +10,9 @@ class TodoState extends _$TodoState{
     return [];
   }
   void refresh()async {
-   final data = await DBHelper.getItems();
-   
-   state = data.map((e) => Task.fromJson(e)).toList();
+    final data = await DBHelper.getItems();
+
+    state = data.map((e) => Task.fromJson(e)).toList();
   }
 
   void addItem(Task task)async{
@@ -21,12 +21,12 @@ class TodoState extends _$TodoState{
 
   }
 
-  void updateItem(int id, String title, String desc,
+  void updateItem(int id, String title, String description,
       int isCompleted,
       String date,
       String startTime,
       String endTime)async{
-    await DBHelper.updateItem(id, title, desc, isCompleted, date, startTime, endTime);
+    await DBHelper.updateItem(id, title, description, isCompleted, date, startTime, endTime);
     refresh();
 
   }
@@ -37,12 +37,12 @@ class TodoState extends _$TodoState{
 
   }
 
-  void markAsCompleted(int id, String title, String desc,
+  void markAsCompleted(int id, String title, String description,
       int isCompleted,
       String date,
       String startTime,
       String endTime)async{
-    await DBHelper.updateItem(id, title, desc, 1, date, startTime, endTime);
+    await DBHelper.updateItem(id, title, description, 1, date, startTime, endTime);
     refresh();
   }
 

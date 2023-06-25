@@ -14,17 +14,17 @@ class TileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.w),
-          color: Colors.grey
+          borderRadius: BorderRadius.circular(30.w),
+          color: Colors.black.withOpacity(0.3),
       ),
       width: width!.w,
       child: Padding(
-        padding:  EdgeInsets.all(10.w),
+        padding:  EdgeInsets.all(17.w),
         child: Row(
           children: [
             Icon(icon, color: Colors.white,),
             WidthSpacer(width: 10),
-            ReusableText(text: text, style: appStyle(16, AppConst.kLight, FontWeight.w500)),
+            ReusableText(text: text, style: appStyle(20, AppConst.kLight, FontWeight.w500)),
           ],
         ),
       ),
