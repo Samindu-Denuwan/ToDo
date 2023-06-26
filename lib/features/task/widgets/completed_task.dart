@@ -5,9 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo/common/models/task_model.dart';
 import 'package:todo/common/utils/constants.dart';
+import 'package:todo/common/widgets/appstyle.dart';
 import 'package:todo/features/task/controllers/_todo/task_provider.dart';
 import 'package:todo/features/task/widgets/tile_todo.dart';
 import 'package:todo/generated/assets.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class CompletedTask extends ConsumerWidget {
   const CompletedTask({
@@ -31,7 +34,17 @@ class CompletedTask extends ConsumerWidget {
         return TodoTile(
           delete: (){
             ref.read(todoStateProvider.notifier).deleteTodo(data.id?? 0);
-          },
+            showTopSnackBar(
+              displayDuration: const Duration(seconds: 1),
+              Overlay.of(context),
+              CustomSnackBar.success(
+                backgroundColor: Colors.green,
+                textStyle: appStyle(16, Colors.white, FontWeight.w500),
+                message:
+                "Task Deleted Successfully..!",
+              ),
+            );
+            },
           editWidget: const SizedBox.shrink(),
           title: data.title,
           description: data.description,

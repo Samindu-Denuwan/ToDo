@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo/common/utils/constants.dart';
@@ -9,14 +10,23 @@ import 'package:todo/generated/assets.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpPage extends StatelessWidget {
-  const OtpPage({Key? key}) : super(key: key);
+  final String smsCodeId;
+  final String phone;
+
+  const OtpPage({Key? key, required this.smsCodeId, required this.phone}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppConst.kGreyBk,
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: Colors.transparent,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+              systemNavigationBarColor: AppConst.kGreyBk,
+              systemNavigationBarIconBrightness: Brightness.light
+          ),
+
 
       ),
       body: SafeArea(

@@ -13,7 +13,7 @@ class PageTwo extends StatelessWidget {
     return Container(
       height: AppConst.kHeight,
       width: AppConst.kWidth,
-      color: AppConst.kbkDark,
+      color: AppConst.kGreyBk,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

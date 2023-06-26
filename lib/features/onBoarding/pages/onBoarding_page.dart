@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/widgets.dart';
@@ -25,14 +26,23 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppConst.kGreyBk,
+      appBar: AppBar(
+        toolbarHeight: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+            systemNavigationBarColor: AppConst.kGreyBk,
+            statusBarColor: AppConst.kGreyBk,
+            systemNavigationBarIconBrightness: Brightness.light
+        ),
+      ),
       body: Stack(
         children: [
           PageView(
             physics: const AlwaysScrollableScrollPhysics(),
             controller: pageController,
             children:  [
-              PageOne(),
-              PageTwo(),
+              const PageOne(),
+              const PageTwo(),
             ],
           ),
           Align(
@@ -47,14 +57,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   GestureDetector(
                     onTap: (){
                       pageController.nextPage(
-                          duration: Duration(milliseconds: 600),
+                          duration: const Duration(milliseconds: 600),
                           curve: Curves.ease);
                     },
                     child: Row(
                       children: [
                         Icon(Ionicons.chevron_forward_circle,
                           size: 30.sp,color: AppConst.kLight,),
-                        WidthSpacer(width: 5),
+                        const WidthSpacer(width: 5),
                         ReusableText(
                             text: "Skip",
                             style: appStyle(16,
@@ -67,7 +77,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   GestureDetector(
                     onTap: (){
                       pageController.nextPage(
-                          duration: Duration(milliseconds: 600),
+                          duration: const Duration(milliseconds: 600),
                           curve: Curves.ease);
                     },
                     child: SmoothPageIndicator(

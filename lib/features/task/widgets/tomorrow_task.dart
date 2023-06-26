@@ -8,6 +8,8 @@ import 'package:todo/features/task/controllers/_todo/task_provider.dart';
 import 'package:todo/features/task/controllers/xpansion_provider.dart';
 import 'package:todo/features/task/pages/update_task.dart';
 import 'package:todo/features/task/widgets/tile_todo.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class TomorrowTask extends ConsumerWidget {
   const TomorrowTask({Key? key}) : super(key: key);
@@ -42,7 +44,17 @@ class TomorrowTask extends ConsumerWidget {
             end: todo.endTime,
             delete: (){
               ref.read(todoStateProvider.notifier).deleteTodo(todo.id?? 0);
-            },
+              showTopSnackBar(
+                displayDuration: const Duration(seconds: 1),
+                Overlay.of(context),
+                CustomSnackBar.success(
+                  backgroundColor: Colors.green,
+                  textStyle: appStyle(16, Colors.white, FontWeight.w500),
+                  message:
+                  "Task Deleted Successfully..!",
+                ),
+              );
+              },
             editWidget: GestureDetector(
               onTap: (){
                 title = todo.title.toString();

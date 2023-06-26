@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "255901731754",
+    "project_id": "to-do-65936",
+    "storage_bucket": "to-do-65936.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255901731754:android:00f271cf2345744b7ff9d3",
+        "android_client_info": {
+          "package_name": "com.denuwan.todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255901731754-af9mgsc00u4blniqvujrr1rbebv4ikuq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.denuwan.todo",
+            "certificate_hash": "751306d45b479db2f0e07f18c941de572f99b75c"
+          }
+        },
+        {
+          "client_id": "255901731754-7cd75ef28ug73sf55vsa1ekfu920stp4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBoGbrwtmMN3f7mSh25hUEwYRRKgiyFq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255901731754-7cd75ef28ug73sf55vsa1ekfu920stp4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "255901731754-vf351vakcm6c701gj0u58n51v60g92q1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.denuwan.todo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

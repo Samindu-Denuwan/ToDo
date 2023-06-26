@@ -12,6 +12,9 @@ import 'package:todo/features/task/controllers/_todo/task_provider.dart';
 import 'package:todo/features/task/controllers/dates/dates_provider.dart';
 import 'package:todo/features/task/controllers/pending/count_provider.dart';
 import 'package:todo/features/task/widgets/tile_widget.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 
 
@@ -216,8 +219,27 @@ class _AddTaskState extends ConsumerState<AddTask> {
                   ref.read(countStateProvider.notifier).setCount(todayList.length.toString());
 
                   print("Added");
+                  showTopSnackBar(
+                    displayDuration: const Duration(seconds: 1),
+                    Overlay.of(context),
+                    CustomSnackBar.success(
+                      backgroundColor: Colors.green,
+                      textStyle: appStyle(16, Colors.white, FontWeight.w500),
+                      message:
+                      "Task Added Successfully..!",
+                    ),
+                  );
                   Navigator.pop(context);
                 }else{
+                  showTopSnackBar(
+                    displayDuration: const Duration(seconds: 1),
+                    Overlay.of(context),
+                    CustomSnackBar.error(
+                      textStyle: appStyle(16, Colors.white, FontWeight.w500),
+                      message:
+                      "Failed to Add Task...!",
+                    ),
+                  );
                   print("Failed");
                 }
               },

@@ -3,20 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lottie/lottie.dart';
-import 'package:todo/common/models/task_model.dart';
 import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/widgets.dart';
 import 'package:todo/features/task/controllers/_todo/task_provider.dart';
 import 'package:todo/features/task/controllers/pending/count_provider.dart';
-import 'package:todo/features/task/controllers/xpansion_provider.dart';
 import 'package:todo/features/task/pages/add.dart';
 import 'package:todo/features/task/widgets/completed_task.dart';
 import 'package:todo/features/task/widgets/day_after_tom_tasks.dart';
-import 'package:todo/features/task/widgets/tile_todo.dart';
 import 'package:todo/features/task/widgets/today_task.dart';
 import 'package:todo/features/task/widgets/tomorrow_task.dart';
-import 'package:todo/generated/assets.dart';
 import 'package:badges/badges.dart' as badges;
 
 
@@ -38,7 +33,6 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
   Widget build(BuildContext context) {
     ref.watch(todoStateProvider.notifier).refresh();
     ref.watch(countStateProvider);
-
     return Scaffold(
       backgroundColor: AppConst.kGreyBk,
       appBar: AppBar(

@@ -4,11 +4,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo/common/models/task_model.dart';
 import 'package:todo/common/utils/constants.dart';
+import 'package:todo/common/widgets/appstyle.dart';
 import 'package:todo/features/task/controllers/_todo/task_provider.dart';
 import 'package:todo/features/task/controllers/pending/count_provider.dart';
 import 'package:todo/features/task/pages/update_task.dart';
 import 'package:todo/features/task/widgets/tile_todo.dart';
 import 'package:todo/generated/assets.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class TodayTask extends ConsumerWidget {
   const TodayTask({
@@ -43,6 +47,16 @@ class TodayTask extends ConsumerWidget {
             element.isCompleted == 0 &&
                 element.date!.contains(today) ).toList();
             ref.read(countStateProvider.notifier).setCount(todayList.length.toString());
+            showTopSnackBar(
+              displayDuration: const Duration(seconds: 1),
+              Overlay.of(context),
+              CustomSnackBar.success(
+                backgroundColor: Colors.green,
+                textStyle: appStyle(16, Colors.white, FontWeight.w500),
+                message:
+                "Task Deleted Successfully..!",
+              ),
+            );
           },
           editWidget: GestureDetector(
             onTap: (){
@@ -79,6 +93,16 @@ class TodayTask extends ConsumerWidget {
                     element.date!.contains(today) ).toList();
                 ref.read(countStateProvider.notifier).setCount(todayList.length.toString());
 
+                showTopSnackBar(
+                  displayDuration: const Duration(seconds: 1),
+                  Overlay.of(context),
+                  CustomSnackBar.success(
+                    backgroundColor: Colors.orange,
+                    textStyle: appStyle(16, Colors.white, FontWeight.w500),
+                    message:
+                    "Task Completed...!",
+                  ),
+                );
 
               }),
 

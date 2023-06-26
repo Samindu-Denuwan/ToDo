@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
@@ -8,9 +9,11 @@ import 'package:todo/common/widgets/custom_text_field.dart';
 import 'package:todo/common/widgets/height_spacer.dart';
 import 'package:todo/common/widgets/reusable_text.dart';
 import 'package:todo/common/widgets/widgets.dart';
-import 'package:todo/features/auth/pages/pages.dart';
+import 'package:todo/features/auth/controllers/auth_controller.dart';
 import 'package:todo/generated/assets.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 
 class LoginPage extends ConsumerStatefulWidget {
@@ -29,16 +32,52 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       e164Sc: 0,
       geographic: true,
       level: 1,
-      name: "LK",
-      example: "SRI LANKA",
+      name: "Sri Lanka",
+      example: "Sri Lanka",
       displayName: "Sri Lanka",
       displayNameNoCountryCode: "LK",
       e164Key: "");
 
+  sendCodeToUser(){
+    if(phoneController.text.isEmpty){
+      return  showTopSnackBar(
+        displayDuration: const Duration(seconds: 1),
+        Overlay.of(context),
+         CustomSnackBar.error(
+         textStyle: appStyle(16, Colors.white, FontWeight.w500),
+          message:
+          'Please Enter phone number',
+        ),
+      );
+    }else if(phoneController.text.length<8) {
+      return  showTopSnackBar(
+        displayDuration: const Duration(seconds: 1),
+        Overlay.of(context),
+        CustomSnackBar.error(
+          textStyle: appStyle(16, Colors.white, FontWeight.w500),
+          message:
+          'Invalid phone number. Please re-enter valid phone number',
+        ),
+      );
+
+    }else{
+      ref.read(authControllerProvider).sendSms(context: context,
+          phone: '+${country.phoneCode}${phoneController.text}');
+      print('+${country.phoneCode}${phoneController.text}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        toolbarHeight: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+            systemNavigationBarColor: AppConst.kGreyBk,
+            systemNavigationBarIconBrightness: Brightness.light
+        ),
+      ),
+    backgroundColor: AppConst.kGreyBk,
       body: SafeArea(
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -54,7 +93,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: ReusableText(
-                        text: "Please Enter your Phone Number",
+                        text: "Enter your Phone Number",
                         style: appStyle(
                             20,
                             AppConst.kLight,
@@ -80,9 +119,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 ),
                                 onSelect: (code){
                                   setState(() {
-
+                                    country = code;
                                   });
                                 });
+
+
                           },
                           child: ReusableText(
                               text: "${country.flagEmoji} + ${country.phoneCode}",
@@ -106,12 +147,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         padding:  EdgeInsets.symmetric(vertical: 30.h, horizontal: 85.w),
         child:  CustomOutlineBtn(
             onTap: (){
-              if(phoneController.text.isNotEmpty){
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => OtpPage(),));
-              }else{
-
-              }
+             sendCodeToUser();
             },
             height: 70,
             borderColor: AppConst.kbkDark,
