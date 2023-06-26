@@ -2,9 +2,15 @@
 class Assets {
   Assets._();
 
+  static const String animationsBell = 'assets/animations/bell.json';
+  static const String animationsBell2 = 'assets/animations/bell2.json';
   static const String animationsCalendar = 'assets/animations/calendar.json';
+  static const String animationsCheckNoti = 'assets/animations/check_noti.json';
   static const String animationsEmpty = 'assets/animations/empty.json';
+  static const String animationsList = 'assets/animations/list.json';
   static const String animationsLogin = 'assets/animations/login.json';
+  static const String animationsNoti = 'assets/animations/noti.json';
+  static const String animationsNotiBell = 'assets/animations/noti-bell.json';
   static const String animationsOnBoard = 'assets/animations/onBoard.json';
   static const String fontPoppinsBold = 'assets/font/Poppins-Bold.ttf';
   static const String fontPoppinsMedium = 'assets/font/Poppins-Medium.ttf';

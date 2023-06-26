@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todo/common/helpers/notification_helper.dart';
 import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/widgets.dart';
 import 'package:todo/features/task/controllers/_todo/task_provider.dart';
@@ -27,6 +28,20 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
   final TextEditingController searchController = TextEditingController();
   late final TabController tabController = TabController(
       length: 2, vsync: this);
+  late NotificationHelper notifierHelper;
+  late NotificationHelper controller;
+
+  @override
+  void initState() {
+    notifierHelper = NotificationHelper(ref: ref);
+    Future.delayed(const Duration(seconds: 0), (){
+      controller = NotificationHelper(ref: ref);
+    });
+    //notifierHelper.initializeNotifications();
+   // notifierHelper.requestIOSPermissions();
+    super.initState();
+  }
+
 
 
   @override

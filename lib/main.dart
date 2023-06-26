@@ -11,6 +11,7 @@ import 'package:todo/features/task/pages/home_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:todo/features/task/pages/view_notification.dart';
 import 'firebase_options.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,8 +56,9 @@ class MyApp extends ConsumerWidget {
                 scaffoldBackgroundColor: AppConst.kGreyBk,
                 useMaterial3: true,
               ),
-              home:users.isEmpty? const OnBoardingPage(): const HomePage(),
-              onGenerateRoute: Routes.onGenerateRoute,
+              home: NotificationsPage()
+              //home:users.isEmpty? const OnBoardingPage(): const HomePage(),
+            //  onGenerateRoute: Routes.onGenerateRoute,
             );
           }
         );
