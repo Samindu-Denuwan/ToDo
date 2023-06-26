@@ -10,6 +10,7 @@ import 'package:todo/common/widgets/widgets.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:todo/features/task/controllers/_todo/task_provider.dart';
 import 'package:todo/features/task/controllers/dates/dates_provider.dart';
+import 'package:todo/features/task/controllers/pending/count_provider.dart';
 import 'package:todo/features/task/widgets/tile_widget.dart';
 
 
@@ -25,13 +26,13 @@ class _AddTaskState extends ConsumerState<AddTask> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
 
-
-
   @override
   Widget build(BuildContext context) {
     var scheduledDate = ref.watch(dateStateProvider);
     var startTime = ref.watch(startTimeStateProvider);
     var finishTime = ref.watch(finishTimeStateProvider);
+
+
     return GestureDetector(
       onTap: ()=>FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -205,6 +206,15 @@ class _AddTaskState extends ConsumerState<AddTask> {
                   ref.read(finishTimeStateProvider.notifier).setFinish("");
                   titleController.clear();
                   descController.clear();
+
+                  List<Task> listData =  ref.watch(todoStateProvider);
+                  String today = ref.read(todoStateProvider.notifier).getToday();
+                  var todayList = listData
+                      .where((element) =>
+                  element.isCompleted == 0 &&
+                      element.date!.contains(today) ).toList();
+                  ref.read(countStateProvider.notifier).setCount(todayList.length.toString());
+
                   print("Added");
                   Navigator.pop(context);
                 }else{
@@ -224,5 +234,6 @@ class _AddTaskState extends ConsumerState<AddTask> {
         ),
       ),
     );
+
   }
 }

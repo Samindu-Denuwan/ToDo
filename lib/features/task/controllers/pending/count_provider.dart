@@ -5,7 +5,7 @@ part 'count_provider.g.dart';
 class CountState extends _$CountState{
   @override
   String build(){
-    return "";
+    return "0";
   }
   void setCount(String newState) {
     state = newState;

@@ -6,9 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo/common/models/task_model.dart';
 import 'package:todo/common/utils/constants.dart';
-import 'package:todo/common/widgets/reusable_text.dart';
 import 'package:todo/common/widgets/widgets.dart';
 import 'package:todo/features/task/controllers/_todo/task_provider.dart';
+import 'package:todo/features/task/controllers/pending/count_provider.dart';
 import 'package:todo/features/task/controllers/xpansion_provider.dart';
 import 'package:todo/features/task/pages/add.dart';
 import 'package:todo/features/task/widgets/completed_task.dart';
@@ -33,9 +33,11 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
   late final TabController tabController = TabController(
       length: 2, vsync: this);
 
+
   @override
   Widget build(BuildContext context) {
     ref.watch(todoStateProvider.notifier).refresh();
+    ref.watch(countStateProvider);
 
     return Scaffold(
       backgroundColor: AppConst.kGreyBk,
@@ -133,12 +135,12 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                                         "Pending"
                                     ),
                                     WidthSpacer(width: 10.w),
-                                    //  badges.Badge(
-                                    //   badgeContent: Text(pendingCount),
-                                    //   badgeStyle: badges.BadgeStyle(
-                                    //     badgeColor: Colors.green
-                                    //   ),
-                                    // )
+                                     badges.Badge(
+                                      badgeContent: Text(ref.read(countStateProvider)),
+                                      badgeStyle: const badges.BadgeStyle(
+                                        badgeColor: Colors.green
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -202,6 +204,8 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
   }
 
 }
+
+
 
 
 

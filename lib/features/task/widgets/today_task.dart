@@ -17,12 +17,16 @@ class TodayTask extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     List<Task> listData =  ref.watch(todoStateProvider);
     String today = ref.read(todoStateProvider.notifier).getToday();
     var todayList = listData
         .where((element) =>
     element.isCompleted == 0 &&
         element.date!.contains(today) ).toList();
+    Future((){
+      ref.read(countStateProvider.notifier).setCount(todayList.length.toString());
+    });
     return todayList.isNotEmpty? ListView.builder(
       itemCount: todayList.length,
       itemBuilder: (context, index) {
@@ -32,6 +36,13 @@ class TodayTask extends ConsumerWidget {
         return TodoTile(
           delete: (){
             ref.read(todoStateProvider.notifier).deleteTodo(data.id?? 0);
+            List<Task> listData =  ref.watch(todoStateProvider);
+            String today = ref.read(todoStateProvider.notifier).getToday();
+            var todayList = listData
+                .where((element) =>
+            element.isCompleted == 0 &&
+                element.date!.contains(today) ).toList();
+            ref.read(countStateProvider.notifier).setCount(todayList.length.toString());
           },
           editWidget: GestureDetector(
             onTap: (){
@@ -60,6 +71,15 @@ class TodayTask extends ConsumerWidget {
                     data.startTime.toString(),
                     data.endTime.toString());
 
+                List<Task> listData =  ref.watch(todoStateProvider);
+                String today = ref.read(todoStateProvider.notifier).getToday();
+                var todayList = listData
+                    .where((element) =>
+                element.isCompleted == 0 &&
+                    element.date!.contains(today) ).toList();
+                ref.read(countStateProvider.notifier).setCount(todayList.length.toString());
+
+
               }),
 
         );
@@ -68,4 +88,5 @@ class TodayTask extends ConsumerWidget {
       child: Lottie.asset(Assets.animationsOnBoard, fit: BoxFit.cover),
     );
   }
+
 }
