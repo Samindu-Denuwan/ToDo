@@ -60,7 +60,7 @@ class NotificationsPage extends StatelessWidget {
                               ReusableText(text: "Today",
                                   style: appStyle(14, AppConst.kGreyBk, FontWeight.w500)),
                            const WidthSpacer(width: 15),
-                              ReusableText(text: "From: $start To: $finish",
+                              ReusableText(text: "From: $start  To: $finish",
                                   style: appStyle(16, AppConst.kGreyBk, FontWeight.w600)),
                             ],
                           ),
