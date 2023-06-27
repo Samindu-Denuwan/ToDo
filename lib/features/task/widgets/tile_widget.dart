@@ -8,7 +8,8 @@ class TileWidget extends StatelessWidget {
   final IconData icon;
   final String text;
   final double? width;
-  const TileWidget({Key? key, required this.icon, required this.text, this.width = 100}) : super(key: key);
+  final bool? isDate;
+  const TileWidget({Key? key, required this.icon, required this.text, this.width = 100, this.isDate= false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,11 @@ class TileWidget extends StatelessWidget {
       ),
       width: width!.w,
       child: Padding(
-        padding:  EdgeInsets.all(17.w),
+        padding:  EdgeInsets.all(18.w),
         child: Row(
           children: [
             Icon(icon, color: Colors.white,),
-            WidthSpacer(width: 10),
+            isDate!?WidthSpacer(width: 15): WidthSpacer(width: 5),
             ReusableText(text: text, style: appStyle(20, AppConst.kLight, FontWeight.w500)),
           ],
         ),

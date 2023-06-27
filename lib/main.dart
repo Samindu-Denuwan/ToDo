@@ -56,9 +56,9 @@ class MyApp extends ConsumerWidget {
                 scaffoldBackgroundColor: AppConst.kGreyBk,
                 useMaterial3: true,
               ),
-              home: NotificationsPage()
-              //home:users.isEmpty? const OnBoardingPage(): const HomePage(),
-            //  onGenerateRoute: Routes.onGenerateRoute,
+              //home: NotificationsPage()
+              home:users.isEmpty? const OnBoardingPage(): const HomePage(),
+               onGenerateRoute: Routes.onGenerateRoute,
             );
           }
         );

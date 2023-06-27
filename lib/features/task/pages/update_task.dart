@@ -4,10 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
+as picker;
+import 'package:todo/common/helpers/notification_helper.dart';
 import 'package:todo/common/models/task_model.dart';
 import 'package:todo/common/utils/constants.dart';
 import 'package:todo/common/widgets/widgets.dart';
 import 'package:todo/features/task/controllers/pending/count_provider.dart';
+import 'package:todo/features/task/pages/home_page.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -29,7 +33,20 @@ class UpdateTask extends ConsumerStatefulWidget {
 class _UpdateTaskState extends ConsumerState<UpdateTask> {
   final TextEditingController titleController = TextEditingController(text: title);
   final TextEditingController descController = TextEditingController(text: desc);
+  List<int>notifications = [];
+  late NotificationHelper notifierHelper;
+  late NotificationHelper controller;
 
+  @override
+  void initState() {
+    notifierHelper = NotificationHelper(ref: ref);
+    Future.delayed(const Duration(seconds: 0), (){
+      controller = NotificationHelper(ref: ref);
+    });
+    notifierHelper.initializeNotifications();
+
+    super.initState();
+  }
 
 
   @override
@@ -126,22 +143,23 @@ class _UpdateTaskState extends ConsumerState<UpdateTask> {
                             const HeightSpacer(height: 20),
                             GestureDetector(
                               onTap:() async {
-                                final timeStart = await showRoundedTimePicker(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  theme: ThemeData(
-                                      primarySwatch: Colors.orange,
-                                      brightness: Brightness.dark
-                                  ),
-                                  fontFamily: 'Poppins',
-                                  initialTime: TimeOfDay.now(),
-                                );
-                                timeStart!=null? ref.read(startTimeStateProvider.notifier).setStart(timeStart.toString()):"";
+                                picker.DatePicker.showDateTimePicker(context,
+                                    showTitleActions: true,
+                                    minTime: DateTime.now(),
+                                    maxTime: DateTime(DateTime.now().year+2),
+                                    onConfirm: (s_time) {
+                                      ref.read(startTimeStateProvider.notifier).setStart(s_time.toString());
+                                      notifications =  ref.read(startTimeStateProvider.notifier).dates(s_time);
+                                      print(s_time.toString());
+                                      print(notifications.toString());
+                                      print(DateTime.now().timeZoneName);
+                                    }, locale: picker.LocaleType.en);
+
                               },
                               child: TileWidget(
                                   width: 120,
                                   icon: FontAwesome.clock_o,
-                                  text: startTime==''?"Start": startTime.substring(10,15)
+                                  text: startTime==''?"Start": startTime.substring(10,16)
                               ),
                             ),
                           ],
@@ -154,24 +172,20 @@ class _UpdateTaskState extends ConsumerState<UpdateTask> {
                             const HeightSpacer(height: 20),
                             GestureDetector(
                               onTap:() async {
-                                final timeFinish = await showRoundedTimePicker(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  theme: ThemeData(
-                                      primarySwatch: Colors.orange,
-                                      brightness: Brightness.dark
-                                  ),
-                                  fontFamily: 'Poppins',
-                                  initialTime: TimeOfDay.now(),
-
-                                );
-                                timeFinish!=null? ref.read(finishTimeStateProvider.notifier).setFinish(timeFinish.toString()):"";
+                                picker.DatePicker.showDateTimePicker(context,
+                                    showTitleActions: true,
+                                    minTime: DateTime.now(),
+                                    maxTime: DateTime(DateTime.now().year+2),
+                                    onConfirm: (e_time) {
+                                      ref.read(finishTimeStateProvider.notifier).setFinish(e_time.toString());
+                                      print(e_time.toString());
+                                    }, locale: picker.LocaleType.en);
 
                               },
                               child:  TileWidget(
                                   width: 120,
                                   icon: FontAwesome.clock_o,
-                                  text: finishTime==''?"End": finishTime.substring(10,15)),
+                                  text: finishTime==''?"End": finishTime.substring(10,16)),
                             ),
                           ],
                         ),
@@ -199,19 +213,25 @@ class _UpdateTaskState extends ConsumerState<UpdateTask> {
                     description: descController.text,
                     isCompleted: 0,
                     date: scheduledDate.substring(0,10),
-                    startTime: startTime.substring(10,15),
-                    endTime: finishTime.substring(10,15),
+                    startTime: startTime.substring(10,16),
+                    endTime: finishTime.substring(10,16),
                     remind: 0,
                     repeat: "yes",
                   );
+                  notifierHelper.scheduledNotification(
+                      notifications[0],
+                      notifications[1],
+                      notifications[2],
+                      notifications[3],
+                      task);
                   ref.read(todoStateProvider.notifier).updateItem(
                       widget.id,
                       titleController.text,
                       descController.text,
                       0,
                       scheduledDate.substring(0,10),
-                      startTime.substring(10,15),
-                      finishTime.substring(10,15));
+                      startTime.substring(10,16),
+                      finishTime.substring(10,16));
                   ref.read(dateStateProvider.notifier).setDate("");
                   ref.read(startTimeStateProvider.notifier).setStart("");
                   ref.read(finishTimeStateProvider.notifier).setFinish("");
@@ -239,7 +259,8 @@ class _UpdateTaskState extends ConsumerState<UpdateTask> {
                       "Task Updated Successfully..!",
                     ),
                   );
-                  Navigator.pop(context);
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) =>const HomePage() ,));
                 }else{
                   showTopSnackBar(
                     displayDuration: const Duration(seconds: 1),

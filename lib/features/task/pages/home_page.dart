@@ -37,7 +37,7 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
     Future.delayed(const Duration(seconds: 0), (){
       controller = NotificationHelper(ref: ref);
     });
-    //notifierHelper.initializeNotifications();
+    notifierHelper.initializeNotifications();
    // notifierHelper.requestIOSPermissions();
     super.initState();
   }

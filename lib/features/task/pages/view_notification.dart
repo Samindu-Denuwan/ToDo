@@ -14,6 +14,12 @@ class NotificationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var title = payload!.split('|')[0];
+    var desc = payload!.split('|')[1];
+    var date = payload!.split('|')[2];
+    var start = payload!.split('|')[3];
+    var finish = payload!.split('|')[4];
+
     return Scaffold(
       backgroundColor: AppConst.kGreyBk,
       appBar: AppBar(
@@ -40,7 +46,7 @@ class NotificationsPage extends StatelessWidget {
                       children: [
                         ReusableText(text: "Reminder",
                             style: appStyle(40, AppConst.kLight, FontWeight.w600)),
-                        HeightSpacer(height: 15),
+                        const HeightSpacer(height: 15),
                         Container(
                           width: AppConst.kWidth,
                           padding: EdgeInsets.only(left: 10.w, top: 5.h, bottom: 5.h),
@@ -53,20 +59,18 @@ class NotificationsPage extends StatelessWidget {
                             children: [
                               ReusableText(text: "Today",
                                   style: appStyle(14, AppConst.kGreyBk, FontWeight.w500)),
-                           WidthSpacer(width: 15),
-                              ReusableText(text: "From: start To: end",
+                           const WidthSpacer(width: 15),
+                              ReusableText(text: "From: $start To: $finish",
                                   style: appStyle(16, AppConst.kGreyBk, FontWeight.w600)),
                             ],
                           ),
                         ),
-                        HeightSpacer(height: 20),
-                        ReusableText(text: "Title",
+                        const HeightSpacer(height: 20),
+                        ReusableText(text: title,
                             style: appStyle(25, Colors.white.withOpacity(0.7), FontWeight.w600)),
-                        HeightSpacer(height: 10),
+                        const HeightSpacer(height: 10),
                         Text(
-                            "datajk  rrujrkyl;;hjhhhx rujrjj gsdgsdgsdgdsg agsgs agasg"
-                                "agasgasg gsggsgsdgg gsdgsd gsdgs "
-                                "sdgsdgsdg",
+                            desc,
                           maxLines: 8,
                           textAlign: TextAlign.justify,
                           style: appStyle(16, Colors.grey.shade300, FontWeight.w500),
