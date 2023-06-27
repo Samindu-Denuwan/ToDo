@@ -6,3 +6,6 @@
 
 
 ![todo1](https://github.com/Samindu-Denuwan/ToDo/assets/86373715/eafea785-fb5a-4402-8286-21edd6abff5a)
+
+![todo2](https://github.com/Samindu-Denuwan/ToDo/assets/86373715/f69ff5ee-5727-40d5-8633-ab9ee942d9f2)
+![3](https://github.com/Samindu-Denuwan/ToDo/assets/86373715/11c3553d-8a0a-444c-b664-db44adc27c48)
